@@ -73,7 +73,7 @@ public class PageFit {
             System.out.println("Nombre total de pages fragmentées: " + pageFragmentees);
         }
 
-        private static void executeNextFit(int[] memory, int[] requetes) {
+        private static void executeNextFit(int[] memoire, int[] requetes) {
             int reqServies = 0;
             int pageFragmentees = 0;
             int dernierAlloc = 0;
@@ -83,7 +83,7 @@ public class PageFit {
                 do {
                     // Chercher un bloc de mémoire libre suffisamment grand
                     int j = i;
-                    while (j < memory.length && memory[j] == 0 && j - i < requete) {
+                    while (j < memoire.length && memoire[j] == 0 && j - i < requete) {
                         j++;
                     }
         
@@ -91,7 +91,7 @@ public class PageFit {
                     if (j - i == requete) {
                         // Allouer le bloc de mémoire
                         for (int k = i; k < j; k++) {
-                            memory[k] = 1;
+                            memoire[k] = 1;
                         }
         
                         reqServies++;
@@ -99,13 +99,13 @@ public class PageFit {
                         break;
                     }
         
-                    i = (i + 1) % memory.length;
+                    i = (i + 1) % memoire.length;
                 } while (i != dernierAlloc);
             }
         
             // Calculer le nombre de pages fragmentées
-            for (int i = 0; i < memory.length; i++) {
-                if (memory[i] == 0) {
+            for (int i = 0; i < memoire.length; i++) {
+                if (memoire[i] == 0) {
                     pageFragmentees++;
                 }
             }
@@ -115,7 +115,7 @@ public class PageFit {
             System.out.println("Nombre total de pages fragmentées: " + pageFragmentees);
         }
 
-        private static void executeBestFit(int[] memory, int[] requetes) {
+        private static void executeBestFit(int[] memoire, int[] requetes) {
             int reqServies = 0;
             int pageFragmentees = 0;
         
@@ -123,10 +123,10 @@ public class PageFit {
                 int bestIndex = -1;
                 int bestSize = Integer.MAX_VALUE;
         
-                for (int i = 0; i < memory.length; i++) {
+                for (int i = 0; i < memoire.length; i++) {
                     // Chercher un bloc de mémoire libre suffisamment grand
                     int j = i;
-                    while (j < memory.length && memory[j] == 0 && j - i < requete) {
+                    while (j < memoire.length && memoire[j] == 0 && j - i < requete) {
                         j++;
                     }
         
@@ -141,7 +141,7 @@ public class PageFit {
                 if (bestIndex != -1) {
                     // Allouer le bloc de mémoire
                     for (int k = bestIndex; k < bestIndex + bestSize; k++) {
-                        memory[k] = 1;
+                        memoire[k] = 1;
                     }
         
                     reqServies++;
@@ -149,8 +149,8 @@ public class PageFit {
             }
         
             // Calculer le nombre de pages fragmentées
-            for (int i = 0; i < memory.length; i++) {
-                if (memory[i] == 0) {
+            for (int i = 0; i < memoire.length; i++) {
+                if (memoire[i] == 0) {
                     pageFragmentees++;
                 }
             }
