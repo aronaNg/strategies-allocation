@@ -13,7 +13,7 @@ public class PageFit {
         // Initialiser l'espace mémoire
         int[] memoire = new int[TOTALES_PAGES];
 
-        // Réservation des pages pour le système d'exploitation
+        // Réservation des pages pour le SE
         Random random = new Random();
         for (int i = 0; i < OS_PAGES; i++) {
             int pageIndex;
@@ -29,7 +29,8 @@ public class PageFit {
             int tailleReq = MIN_REQUETE + random.nextInt(MAX_REQUETE - MIN_REQUETE + 1);
             requetes[i] = tailleReq / TAILLE_PAGE;
         }
-
+        // https://www.geeksforgeeks.org/clone-method-in-java-2/
+        
         executeFirstFit(memoire.clone(), requetes);
         executeNextFit(memoire.clone(), requetes);
         executeBestFit(memoire.clone(), requetes);
